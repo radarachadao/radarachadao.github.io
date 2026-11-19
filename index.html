@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Radar Achadão 📡 Achadinhos Shopee</title>
+<meta name="description" content="Achadinhos úteis e baratos da Shopee. Procure pelo número do produto que apareceu no vídeo.">
+<meta property="og:title" content="Radar Achadão 📡 Achadinhos Shopee">
+<meta property="og:description" content="O útil e barato que você não sabia que precisava. Procure pelo número do vídeo.">
+<meta property="og:image" content="img/logo.jpg">
+<meta name="theme-color" content="#EE4D2D">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  :root{
+    --laranja:#EE4D2D; --laranja-escuro:#C93A1E; --amarelo:#FFD600;
+    --fundo:#FFF7F4; --card:#FFFFFF; --texto:#1F1F1F; --suave:#6B6B6B; --borda:#F1E2DC;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--fundo);color:var(--texto);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+
+  header{background:var(--laranja);color:#fff;padding:28px 20px 56px;text-align:center}
+  header img{width:88px;height:88px;border-radius:50%;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+  header h1{font-size:1.45rem;margin-top:12px;letter-spacing:.2px}
+  header p{opacity:.92;margin-top:4px;font-size:.95rem}
+  .redes{display:flex;gap:10px;justify-content:center;margin-top:14px}
+  .redes a{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:999px;text-decoration:none;font-size:.85rem;font-weight:600}
+
+  main{max-width:560px;margin:-36px auto 0;padding:0 16px 40px}
+  .busca{background:var(--card);border-radius:16px;box-shadow:0 6px 20px rgba(238,77,45,.12);padding:14px}
+  .busca label{display:block;font-size:.85rem;color:var(--suave);margin-bottom:8px;font-weight:600}
+  .busca input{width:100%;font-size:1.05rem;padding:13px 14px;border:2px solid var(--borda);border-radius:12px;outline:none;background:#fff}
+  .busca input:focus{border-color:var(--laranja)}
+
+  .contagem{font-size:.85rem;color:var(--suave);margin:18px 4px 10px}
+  .lista{display:grid;gap:14px}
+
+  .card{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--borda);display:grid;grid-template-columns:130px 1fr;scroll-margin-top:16px}
+  .card.destaque{outline:3px solid var(--amarelo)}
+  .foto{position:relative;background:#fff;display:flex;align-items:center}
+  .foto img{width:100%;object-fit:cover;object-position:65% center;display:block;aspect-ratio:1/1}
+  .num{position:absolute;top:8px;left:8px;background:var(--laranja);color:#fff;font-weight:800;font-size:.9rem;padding:4px 8px;border-radius:8px}
+  .info{padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+  .cat{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--laranja)}
+  .info h2{font-size:1rem;line-height:1.25}
+  .info p{font-size:.86rem;color:var(--suave);line-height:1.35}
+  .btn{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--laranja);color:#fff;text-decoration:none;font-weight:700;font-size:.92rem;padding:11px 12px;border-radius:10px}
+  .btn:active{background:var(--laranja-escuro)}
+  .novo{display:inline-block;background:var(--amarelo);color:#3a2a00;font-size:.68rem;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:6px;vertical-align:middle}
+
+  .vazio{text-align:center;color:var(--suave);padding:30px 10px;display:none}
+  footer{text-align:center;font-size:.78rem;color:var(--suave);padding:10px 20px 34px;line-height:1.5;max-width:560px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="img/logo.jpg" alt="Logo Radar Achadão">
+  <h1>Radar Achadão 📡</h1>
+  <p>O útil e barato que você não sabia que precisava</p>
+  <div class="redes">
+    <a href="https://www.tiktok.com/@radarachadao" target="_blank" rel="noopener">TikTok</a>
+    <a href="https://www.instagram.com/radarachadao/" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</header>
+
+<main>
+  <div class="busca">
+    <label for="q">Viu no vídeo? Digite o número ou o nome 👇</label>
+    <input id="q" type="search" inputmode="search" placeholder="Ex.: 01 ou colher" autocomplete="off">
+  </div>
+
+  <div class="contagem" id="contagem"></div>
+  <div class="lista" id="lista"></div>
+  <div class="vazio" id="vazio">Nada encontrado com esse número ou nome. 🤔<br>Confira o número que aparece no vídeo.</div>
+</main>
+
+<footer>
+  Os botões levam para a Shopee por links de afiliado: se você comprar, eu recebo uma pequena comissão, sem custo a mais para você.<br>
+  Preços e estoque são definidos pela Shopee e podem mudar.
+</footer>
+
+<script>
+/* ===== PRODUTOS =====
+   Para adicionar um produto novo, copie um bloco e coloque no TOPO da lista.
+   num: número que aparece no vídeo | link: link de afiliado da Shopee */
+const PRODUTOS = [
+  {
+    num: "01",
+    nome: "Colher medidora com balança digital",
+    descricao: "Pesa direto na colher: receitas, café, whey e até a ração do pet.",
+    categoria: "Cozinha",
+    foto: "img/01-colher-digital.jpg",
+    link: "https://s.shopee.com.br/4fxuiTwjh6",
+    data: "2026-11-19"
+  }
+];
+
+const lista = document.getElementById('lista');
+const q = document.getElementById('q');
+const contagem = document.getElementById('contagem');
+const vazio = document.getElementById('vazio');
+
+const norm = s => (s||'').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const ehNovo = d => { const t = Date.parse(d); return !isNaN(t) && (Date.now() - t) < 3*24*3600*1000; };
+const esc = s => (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function render(filtro){
+  const f = norm(filtro).replace('#','').trim();
+  const fNum = f.replace(/^0+/, '');
+  const itens = PRODUTOS.filter(p => {
+    if(!f) return true;
+    if(/^\d+$/.test(f)) return p.num.replace(/^0+/, '') === fNum;
+    return norm(p.nome + ' ' + p.descricao + ' ' + p.categoria).includes(f);
+  });
+  lista.innerHTML = itens.map(p => `
+    <article class="card${f && itens.length===1 ? ' destaque':''}" id="p${esc(p.num)}">
+      <div class="foto">
+        <img src="${esc(p.foto)}" alt="${esc(p.nome)}" loading="lazy">
+        <span class="num">#${esc(p.num)}</span>
+      </div>
+      <div class="info">
+        <span class="cat">${esc(p.categoria)}${ehNovo(p.data) ? '<span class="novo">NOVO</span>' : ''}</span>
+        <h2>${esc(p.nome)}</h2>
+        <p>${esc(p.descricao)}</p>
+        <a class="btn" href="${esc(p.link)}" target="_blank" rel="nofollow sponsored noopener">Ver na Shopee →</a>
+      </div>
+    </article>`).join('');
+  contagem.textContent = f ? `${itens.length} resultado(s)` : `${PRODUTOS.length} achadinho(s) no radar`;
+  vazio.style.display = itens.length ? 'none' : 'block';
+}
+
+q.addEventListener('input', e => render(e.target.value));
+
+// Permite link direto para um produto: .../#01
+const hash = decodeURIComponent(location.hash.replace('#',''));
+if(hash){ q.value = hash; }
+render(q.value);
+</script>
+</body>
+</html>
